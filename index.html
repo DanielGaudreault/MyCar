@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2017 Honda Civic LX - Custom Build</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --honda-blue: #003366;
+            --honda-red: #e40521;
+            --accent: #ff7a00;
+            --dark: #1a1a1a;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: rgba(10, 10, 10, 0.95);
+            padding: 20px 5%;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--accent);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo i {
+            font-size: 2.2rem;
+            color: var(--accent);
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .logo-text .subtitle {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            color: #ccc;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1592198084033-aade902d1aae?ixlib=rb-4.0.3') center/cover;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            background: #ff8c29;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 122, 0, 0.3);
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title p {
+            font-size: 1.1rem;
+            color: #ccc;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Gallery */
+        .gallery {
+            background: #111;
+        }
+
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 250px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        /* Specs */
+        .specs-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .spec-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .spec-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+        }
+
+        .spec-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .spec-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .spec-card p {
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        /* Mods */
+        .mods {
+            background: #111;
+        }
+
+        .mods-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .mod-category {
+            margin-bottom: 50px;
+        }
+
+        .mod-category h3 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: var(--accent);
+            border-left: 4px solid var(--accent);
+            padding-left: 15px;
+        }
+
+        .mod-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .mod-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s;
+        }
+
+        .mod-item:hover {
+            background: rgba(255, 122, 0, 0.1);
+            transform: translateX(10px);
+        }
+
+        .mod-icon {
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+
+        .mod-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .mod-info p {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        /* Performance */
+        .performance-meters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .meter {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 30px;
+        }
+
+        .meter-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .meter-label {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .meter-value {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .meter-bar {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .meter-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 5px;
+            width: 0;
+            transition: width 1.5s ease-in-out;
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0a0a;
+            padding: 60px 5% 30px;
+            border-top: 2px solid var(--accent);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        .footer-column p, .footer-column a {
+            color: #ccc;
+            line-height: 1.8;
+            margin-bottom: 10px;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: var(--accent);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 5%;
+            }
+
+            nav ul {
+                gap: 15px;
+            }
+
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+
+            section {
+                padding: 80px 5%;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .gallery-container {
+                grid-template-columns: 1fr;
+            }
+
+            .mod-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <i class="fas fa-car"></i>
+            <div class="logo-text">
+                <h1>Honda Civic LX</h1>
+                <div class="subtitle">2017 • Custom Build</div>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#specs">Specs</a></li>
+                <li><a href="#mods">Modifications</a></li>
+                <li><a href="#performance">Performance</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Fully Modified 2017 Civic LX</h2>
+            <p>Experience the ultimate transformation of a factory Civic into a performance-focused show car with custom aesthetics and enhanced driving dynamics.</p>
+            <a href="#gallery" class="cta-button">View Build</a>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <div class="section-title">
+            <h2>Gallery</h2>
+            <p>Visual journey of the transformation from stock to fully customized</p>
+        </div>
+        <div class="gallery-container">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?ixlib=rb-4.0.3" alt="Front View">
+                <div class="gallery-overlay">
+                    <h3>Aggressive Front Styling</h3>
+                    <p>Custom splitter and LED lighting</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1603587070813-50d1220674ab?ixlib=rb-4.0.3" alt="Side View">
+                <div class="gallery-overlay">
+                    <h3>Profile Shot</h3>
+                    <p>Lowered suspension and alloy wheels</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1603587070813-50d1220674ab?ixlib=rb-4.0.3" alt="Rear View">
+                <div class="gallery-overlay">
+                    <h3>Rear Diffuser</h3>
+                    <p>Custom exhaust and rear spoiler</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1603587070813-50d1220674ab?ixlib=rb-4.0.3" alt="Engine Bay">
+                <div class="gallery-overlay">
+                    <h3>Engine Bay</h3>
+                    <p>Performance upgrades and custom piping</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1603587070813-50d1220674ab?ixlib=rb-4.0.3" alt="Interior">
+                <div class="gallery-overlay">
+                    <h3>Custom Interior</h3>
+                    <p>Sport seats and steering wheel</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1603587070813-50d1220674ab?ixlib=rb-4.0.3" alt="Wheels">
+                <div class="gallery-overlay">
+                    <h3>Alloy Wheels</h3>
+                    <p>18" lightweight performance wheels</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specs Section -->
+    <section id="specs" class="specs">
+        <div class="section-title">
+            <h2>Specifications</h2>
+            <p>Technical details and performance metrics</p>
+        </div>
+        <div class="specs-container">
+            <div class="spec-card">
+                <div class="spec-icon">
+                    <i class="fas fa-tachometer-alt"></i>
+                </div>
+                <h3>Performance</h3>
+                <p>2.0L I4 Engine with performance tune<br>
+                   Estimated 190 HP / 160 lb-ft torque<br>
+                   0-60 mph: 6.8 seconds</p>
+            </div>
+            <div class="spec-card">
+                <div class="spec-icon">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <h3>Drivetrain</h3>
+                <p>CVT Transmission with paddle shifters<br>
+                   Front-wheel drive<br>
+                   Limited-slip differential</p>
+            </div>
+            <div class="spec-card">
+                <div class="spec-icon">
+                    <i class="fas fa-weight-hanging"></i>
+                </div>
+                <h3>Chassis</h3>
+                <p>Lowered sport suspension<br>
+                   Upgraded anti-roll bars<br>
+                   Performance brake system</p>
+            </div>
+            <div class="spec-card">
+                <div class="spec-icon">
+                    <i class="fas fa-ruler-combined"></i>
+                </div>
+                <h3>Dimensions</h3>
+                <p>Wheelbase: 106.3 in<br>
+                   Length: 182.3 in<br>
+                   Curb Weight: 2,900 lbs</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mods Section -->
+    <section id="mods" class="mods">
+        <div class="section-title">
+            <h2>Modifications</h2>
+            <p>Complete list of aftermarket upgrades and custom work</p>
+        </div>
+        <div class="mods-container">
+            <div class="mod-category">
+                <h3>Exterior</h3>
+                <div class="mod-list">
+                    <div class="mod-item">
+                        <div class="mod-icon">
+                            <i class="fas fa-spray-can"></i>
+                        </div>
+                        <div class="mod-info">
+                            <h4>Custom Wrap</h4>
+                            <p>Matte gray metallic with orange accents</p>
+                        </div>
+                    </div>
+                    <div class="mod-item">
+                        <div class="mod-icon">
+                            <i class="fas fa-wind"></i>
+                        </div>
+                        <div class="mod-info">
+                            <h4>Front Splitter</h4>
+                            <p>Carbon fiber look with custom mounting</p>
+                        </div>
+                    </div>
+                    <div class="mod-item">
+                        <div class="mod-icon">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <div class="mod-info">
+                            <h4>Rear Spoiler</h4>
+                            <p>OEM-style duckbill spoiler</p>
+                        </div>
+                    </div>
+                    <div class="mod-item">
+                        <div class="mod-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div class="mod-info">
+                            <h4>LED Lighting</h4>
+                            <p>Custom headlights and taillights</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mod-category">
+                <h3>Performance</h3>
+                <div class="mod-list">
+                    <div class="mod-item">
+                        <div class="mod-icon">
+                            <i class="fas fa-microchip"></i>
+                        </div>
+                        <div class="mod-info">
+                            <h4>ECU Tune</h4>
+                            <p>KTuner V2 with custom mapping</p>
+                        </div>
+                    </div>
+                    <div class="mod-item">
+                        <div class="mod-icon">
+                            <i class="fas fa-filter"></i>
+                        </div>
+                        <div class="mod-info">
+                            <h4>Cold Air Intake</h4>
+                            <p>Injen short ram intake system</p>
+                        </div>
+                    </div>
+                    <div class="mod-item">
+                        <div class="mod-icon">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div class="mod-info">
+                            <h4>Exhaust System</h4>
+                            <p>Custom cat-back with dual tips</p>
+                        </div>
+                    </div>
+                    <div class="mod-item">
+                        <div class="mod-icon">
+                            <i class="fas fa-oil-can"></i>
+                        </div>
+                        <div class="mod-info">
+                            <h4>Oil Cooler</h4>
+                            <p>Mishimoto performance oil cooler</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mod-category">
+                <h3>Suspension & Wheels</h3>
+                <div class="mod-list">
+                    <div class="mod-item">
+                        <div class="mod-icon">
+                            <i class="fas fa-compress-arrows-alt"></i>
+                        </div>
+                        <div class="mod-info">
+                            <h4>Coilovers</h4>
+                            <p>BC Racing BR series coilovers</p>
+                        </div>
+                    </div>
+                    <div class="mod-item">
+                        <div class="mod-icon">
+                            <i class="fas fa-tire"></i>
+                        </div>
+                        <div class="mod-info">
+                            <h4>Wheels</h4>
+                            <p>Enkei RPF1 18x8.5 +35 offset</p>
+                        </div>
+                    </div>
+                    <div class="mod-item">
+                        <div class="mod-icon">
+                            <i class="fas fa-road"></i>
+                        </div>
+                        <div class="mod-info">
+                            <h4>Tires</h4>
+                            <p>Michelin Pilot Sport 4S 235/40R18</p>
+                        </div>
+                    </div>
+                    <div class="mod-item">
+                        <div class="mod-icon">
+                            <i class="fas fa-grip-lines"></i>
+                        </div>
+                        <div class="mod-info">
+                            <h4>Anti-Roll Bars</h4>
+                            <p>Progress Technology rear sway bar</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performance Section -->
+    <section id="performance" class="performance">
+        <div class="section-title">
+            <h2>Performance Metrics</h2>
+            <p>Measured improvements over stock configuration</p>
+        </div>
+        <div class="performance-meters">
+            <div class="meter">
+                <div class="meter-header">
+                    <div class="meter-label">Horsepower</div>
+                    <div class="meter-value">190 HP</div>
+                </div>
+                <div class="meter-bar">
+                    <div class="meter-fill" id="hp-meter"></div>
+                </div>
+            </div>
+            <div class="meter">
+                <div class="meter-header">
+                    <div class="meter-label">Torque</div>
+                    <div class="meter-value">160 lb-ft</div>
+                </div>
+                <div class="meter-bar">
+                    <div class="meter-fill" id="torque-meter"></div>
+                </div>
+            </div>
+            <div class="meter">
+                <div class="meter-header">
+                    <div class="meter-label">0-60 mph</div>
+                    <div class="meter-value">6.8s</div>
+                </div>
+                <div class="meter-bar">
+                    <div class="meter-fill" id="accel-meter"></div>
+                </div>
+            </div>
+            <div class="meter">
+                <div class="meter-header">
+                    <div class="meter-label">Handling</div>
+                    <div class="meter-value">+35%</div>
+                </div>
+                <div class="meter-bar">
+                    <div class="meter-fill" id="handling-meter"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>About This Build</h3>
+                <p>This 2017 Honda Civic LX has been transformed from a practical commuter into a performance-oriented show car while maintaining daily drivability.</p>
+                <p>All modifications were carefully selected and installed with attention to detail and quality.</p>
+            </div>
+            <div class="footer-column">
+                <h3>Build Details</h3>
+                <p><strong>Base Vehicle:</strong> 2017 Honda Civic LX</p>
+                <p><strong>Build Time:</strong> 18 months</p>
+                <p><strong>Total Investment:</strong> $12,500+</p>
+                <p><strong>Build Philosophy:</strong> Balanced performance & aesthetics</p>
+            </div>
+            <div class="footer-column">
+                <h3>Connect</h3>
+                <p>Interested in this build or have questions?</p>
+                <p><i class="fas fa-envelope"></i> civic.build@example.com</p>
+                <p><i class="fas fa-phone"></i> (555) 123-4567</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 Honda Civic LX Custom Build. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Animate performance meters on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set meter values after a short delay for animation effect
+            setTimeout(() => {
+                document.getElementById('hp-meter').style.width = '76%';
+                document.getElementById('torque-meter').style.width = '80%';
+                document.getElementById('accel-meter').style.width = '85%';
+                document.getElementById('handling-meter').style.width = '90%';
+            }, 500);
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Add scroll effect to header
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('header');
+                if (window.scrollY > 100) {
+                    header.style.background = 'rgba(10, 10, 10, 0.98)';
+                    header.style.padding = '15px 5%';
+                } else {
+                    header.style.background = 'rgba(10, 10, 10, 0.95)';
+                    header.style.padding = '20px 5%';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
